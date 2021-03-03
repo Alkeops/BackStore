@@ -1,5 +1,5 @@
 const fs = require("fs");
-import { Producto, Data } from "@interfaces";
+import { Producto, Data, Response } from "@interfaces";
 
 const DIRFOLDER = `${__dirname}/productos.txt`;
 
@@ -22,9 +22,38 @@ export class ProductosServices {
     return (this.state = data);
   };
   //Devuelve todo lo que halla en el array
-  all = () => this.state;
+  all = (): Response => {
+    return {
+      status: {
+        code: 200,
+        desc: "All clear",
+      },
+      data: this.state,
+      timestamp: +new Date(),
+    };
+  };
   //Metodo repetido para la clase abstracta**
-  byId = (id: string) => this.state.find((element) => element.id === id);
+  byId = (id: string): Response => {
+    const element = this.state.find((element) => element.id === id)!;
+    if (!element) {
+      return {
+        status: {
+          code: 404,
+          desc: "Not Found",
+        },
+        data: [],
+        timestamp: +new Date(),
+      };
+    }
+    return {
+      status: {
+        code: 200,
+        desc: "All clear",
+      },
+      data: [element],
+      timestamp: +new Date(),
+    };
+  };
   post = (producto: Producto) => {
     //Post de un nuevo Producto con la interface Producto
     this.state.push(producto);
@@ -36,10 +65,43 @@ export class ProductosServices {
     return this.rewriteFile();
   };
 
-  update = (id: string, data: Data) => {
+  update = (id: string, data: Data): Response => {
     /* Usa el metodo para traer el elemento preciso con el ID y se clona en una nueva variable, esto porque la asignacion simple solo guarda la referencia
     del objeto pero no el objeto en si */
-    const element: Producto = Object.assign({}, this.byId(id));
+    const element: Producto = Object.assign(
+      {},
+      this.state.find((element) => element.id === id)!
+    );
+
+    /*
+    Se hace un conteo de las veces que un valor de una llave de data se repite en el elemento. Si el counter es igual al numero de keys en data significa que los datos ya estaban actualizados
+    */
+    let counter = 0;
+    let wrongType = false;
+    Object.keys(data).forEach((e) => {
+      if (element[e] === data[e]) counter++;
+      if (typeof element[e] !== typeof data[e]) wrongType = true;
+    });
+    if (wrongType) {
+      return {
+        status: {
+          code: 418,
+          desc: "No coinciden los tipos",
+        },
+        data: [],
+        timestamp: +new Date(),
+      };
+    }
+    if (counter === Object.keys(data).length) {
+      return {
+        status: {
+          code: 418,
+          desc: "Nada por actualizar",
+        },
+        data: [],
+        timestamp: +new Date(),
+      };
+    }
 
     //Elimina el elemento del archivo
     this.delete(id);
@@ -50,7 +112,16 @@ export class ProductosServices {
     };
     this.post(elementUpdated);
     //Cuando sea una base de datos y no un archivo se puede actualizar directamente el producto sin eliminarlo del array, por ahora no tiene sentido hacer dos procesos
-    return elementUpdated;
+    {
+      return {
+        status: {
+          code: 202,
+          desc: "Actualizado",
+        },
+        data: [elementUpdated],
+        timestamp: +new Date(),
+      };
+    }
   };
 
   rewriteFile = () => {

@@ -1,3 +1,3 @@
-import { Producto, Data } from "./producto.interface";
+import { Producto, Data, Response } from "./producto.interface";
 
-export { Producto, Data };
+export { Producto, Data, Response };

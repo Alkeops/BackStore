@@ -18,4 +18,13 @@ interface Data {
   code?: string;
 }
 
-export { Producto, Data };
+interface Status {
+  code: number;
+  desc: string;
+}
+interface Response {
+  status: Status;
+  data: Array<Producto> | [];
+  timestamp: number;
+}
+export { Producto, Data, Response };

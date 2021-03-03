@@ -16,14 +16,25 @@ const validateProducto = {
     next: express.NextFunction
   ) => {
     const parameters = req.body;
+    /* Valida si las las keys mandadas en el json existen en el "schema" producto, si no existen se responde con la llave que no coincide.*/
+    const arrayError: Array<string> = [];
     Object.keys(parameters).map((element) => {
       if (!initialData.hasOwnProperty(element)) {
-        res
-          .status(400)
-          .json(`[ ${element.toUpperCase()} ] no es una propiedad valida`);
-        return next(`[ ${element.toUpperCase()} ] no es una propiedad valida`);
+        arrayError.push(element);
       }
     });
+    if (arrayError.length) {
+      res
+        .status(400)
+        .json(
+          `[ ${arrayError.join(" || ").toUpperCase()} ] no ${
+            arrayError.length > 1 ? "son" : "es"
+          } una propiedad valida`
+        );
+      return next(
+        `[ ${arrayError.join("||").toUpperCase()} ] no es una propiedad valida`
+      );
+    }
     return next();
   },
 };
