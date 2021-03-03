@@ -17,6 +17,8 @@ module.exports = {
       "@controllers": srcPath("controllers"),
       "@routes": srcPath("routes"),
       "@services": srcPath("services"),
+      "@interfaces": srcPath("ts/interfaces"),
+      "@middlewares": srcPath("middlewares"),
     },
   },
   module: {
