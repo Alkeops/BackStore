@@ -14,19 +14,13 @@ const productoController = {
     res.status(response.status.code).json(response);
   },
   create: (req: express.Request, res: express.Response) => {
-    const { price, name, description, stock, code, thumbnail } = req.body;
     const newProduct = {
-      price,
-      name,
-      description,
-      stock,
-      code,
-      thumbnail,
+      ...req.body,
       id: uuidv4(),
       timestamp: +new Date(),
     };
-    Service.post(newProduct);
-    res.status(201).json(newProduct);
+    const response = Service.post(newProduct);
+    res.status(response.status.code).json(response);
   },
   update: (req: express.Request, res: express.Response) => {
     const response = Service.update(req.params.id, req.body);

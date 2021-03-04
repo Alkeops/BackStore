@@ -24,7 +24,7 @@ interface Status {
 }
 interface Response {
   status: Status;
-  data: Array<Producto> | [];
+  data: Producto[];
   timestamp: number;
 }
 export { Producto, Data, Response };
