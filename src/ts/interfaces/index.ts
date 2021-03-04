@@ -1,3 +1,4 @@
-import { Producto, Data, Response } from "./producto.interface";
+import { Producto, DataP, ResponseP } from "./producto.interface";
+import { Carrito, ResponseC } from "./carrito.interface";
 
-export { Producto, Data, Response };
+export { Producto, DataP, ResponseP, Carrito, ResponseC };

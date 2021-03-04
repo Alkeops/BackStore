@@ -1,9 +1,10 @@
-import { Producto, Response } from "@interfaces";
+import { Producto, ResponseP, Carrito, ResponseC } from "@interfaces";
+
 const returnForApiProductos = (
   code: number,
   desc: string,
-  data: Array<Producto> | []
-): Response => {
+  data: Producto[] | []
+): ResponseP => {
   return {
     status: {
       code,
@@ -14,4 +15,18 @@ const returnForApiProductos = (
   };
 };
 
-export { returnForApiProductos };
+const returnForApiCarrito = (
+  code: number,
+  desc: string,
+  data: Carrito | Producto[]
+): ResponseC => {
+  return {
+    status: {
+      code,
+      desc,
+    },
+    data,
+    timestamp: +new Date(),
+  };
+};
+export { returnForApiProductos, returnForApiCarrito };

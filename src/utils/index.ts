@@ -1,3 +1,3 @@
-import { returnForApiProductos } from "./return.producto";
+import { returnForApiProductos, returnForApiCarrito } from "./return.producto";
 
-export { returnForApiProductos };
+export { returnForApiProductos, returnForApiCarrito };

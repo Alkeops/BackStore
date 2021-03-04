@@ -9,7 +9,7 @@ interface Producto {
   code: string;
 }
 
-interface Data {
+interface DataP {
   price?: number;
   thumbnail?: string;
   name?: string;
@@ -22,9 +22,10 @@ interface Status {
   code: number;
   desc: string;
 }
-interface Response {
+interface ResponseP {
   status: Status;
   data: Producto[];
   timestamp: number;
 }
-export { Producto, Data, Response };
+
+export { Producto, DataP, ResponseP };

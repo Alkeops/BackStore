@@ -1,5 +1,5 @@
 const fs = require("fs");
-import { Producto, Data, Response } from "@interfaces";
+import { Producto, DataP, ResponseP } from "@interfaces";
 import { returnForApiProductos } from "@utils";
 
 const DIRFOLDER = `${__dirname}/productos.txt`;
@@ -24,29 +24,30 @@ export class ProductosServices {
   };
 
   //Devuelve todo lo que halla en el array
-  all = (): Response => returnForApiProductos(200, "All clear", this.state);
+  all = (): ResponseP => returnForApiProductos(200, "All clear", this.state);
 
   //Metodo repetido para la clase abstracta**
-  byId = (id: string): Response => {
+  byId = (id: string): ResponseP => {
     const element = this.state.find((element) => element.id === id)!;
     if (!element) return returnForApiProductos(404, "Not Found", []);
     return returnForApiProductos(200, "All clear", [element]);
   };
 
   //Post de un nuevo Producto con la interface Producto falta validar si el producto ya existe
-  post = (producto: Producto): Response => {
+  post = (producto: Producto): ResponseP => {
     this.state.push(producto);
     this.rewriteFile();
     return returnForApiProductos(201, "Producto creado", [producto]);
   };
 
   //Metodo repetido para clase abstracta**
+  //TODO Comprobar si el id existe
   delete = (id: string) => {
     this.state = this.state.filter((element) => element.id !== id);
     return this.rewriteFile();
   };
 
-  update = (id: string, data: Data): Response => {
+  update = (id: string, data: DataP): ResponseP => {
     /* Usa el metodo para traer el elemento preciso con el ID y se clona en una nueva variable, esto porque la asignacion simple solo guarda la referencia
     del objeto pero no el objeto en si */
     const element: Producto = Object.assign(
