@@ -3,6 +3,7 @@ import http from "http";
 import routes from "@routes";
 
 const app = express();
+
 export const serverHttp = http.createServer(app); //Socket Io
 
 app.use(express.json());
