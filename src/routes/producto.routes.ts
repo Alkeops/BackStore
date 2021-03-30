@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { productoController as Controller } from "@controllers";
+import { productoController as Controller } from "@controllers/productoController;
 import { validateProducto, validateUser } from "@middlewares";
 
 const productoRouter = Router();
