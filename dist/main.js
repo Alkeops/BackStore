@@ -10,36 +10,6 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/config/enviroment.conf.ts":
-/*!***************************************!*\
-  !*** ./src/config/enviroment.conf.ts ***!
-  \***************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.MONGODB_GLOBAL_URI = exports.MONGODB_GLOBAL_USER = exports.MONGODB_GLOBAL_PASS = void 0;\nvar dotenv_1 = __importDefault(__webpack_require__(/*! dotenv */ \"dotenv\"));\ndotenv_1.default.config();\nvar MONGODB_GLOBAL_PORT = process.env.MONGODB_PORT || \"27017\";\nvar MONGODB_GLOBAL_URI = process.env.MONGODB_URI || \"mongodb://127.0.0.1:\" + MONGODB_GLOBAL_PORT;\nexports.MONGODB_GLOBAL_URI = MONGODB_GLOBAL_URI;\nvar MONGODB_GLOBAL_USER = process.env.MONGODB_USER || \"\";\nexports.MONGODB_GLOBAL_USER = MONGODB_GLOBAL_USER;\nvar MONGODB_GLOBAL_PASS = process.env.MONGODB_PASS || \"\";\nexports.MONGODB_GLOBAL_PASS = MONGODB_GLOBAL_PASS;\n\n\n//# sourceURL=webpack://back/./src/config/enviroment.conf.ts?");
-
-/***/ }),
-
-/***/ "./src/config/index.ts":
-/*!*****************************!*\
-  !*** ./src/config/index.ts ***!
-  \*****************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.mongoose = void 0;\nvar mongoose_conf_1 = __webpack_require__(/*! ./mongoose.conf */ \"./src/config/mongoose.conf.ts\");\nObject.defineProperty(exports, \"mongoose\", ({ enumerable: true, get: function () { return mongoose_conf_1.mongoose; } }));\n\n\n//# sourceURL=webpack://back/./src/config/index.ts?");
-
-/***/ }),
-
-/***/ "./src/config/mongoose.conf.ts":
-/*!*************************************!*\
-  !*** ./src/config/mongoose.conf.ts ***!
-  \*************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.mongoose = void 0;\nvar mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\nexports.mongoose = mongoose;\nvar enviroment_conf_1 = __webpack_require__(/*! ./enviroment.conf */ \"./src/config/enviroment.conf.ts\");\nmongoose.connect(enviroment_conf_1.MONGODB_GLOBAL_URI, {\n    useNewUrlParser: true,\n    useUnifiedTopology: true,\n    user: enviroment_conf_1.MONGODB_GLOBAL_USER,\n    pass: enviroment_conf_1.MONGODB_GLOBAL_PASS,\n});\n\n\n//# sourceURL=webpack://back/./src/config/mongoose.conf.ts?");
-
-/***/ }),
-
 /***/ "./src/controllers/carrito.controller.ts":
 /*!***********************************************!*\
   !*** ./src/controllers/carrito.controller.ts ***!
@@ -56,7 +26,7 @@ eval("\nvar __assign = (this && this.__assign) || function () {\n    __assign = 
   \**********************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.carritoController = exports.productoController = void 0;\nvar producto_controller_1 = __importDefault(__webpack_require__(/*! ./producto.controller */ \"./src/controllers/producto.controller.ts\"));\nexports.productoController = producto_controller_1.default;\nvar carrito_controller_1 = __importDefault(__webpack_require__(/*! ./carrito.controller */ \"./src/controllers/carrito.controller.ts\"));\nexports.carritoController = carrito_controller_1.default;\n\n\n//# sourceURL=webpack://back/./src/controllers/index.ts?");
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.carritoController = exports.productoController = void 0;\nvar producto_controller_1 = __webpack_require__(/*! ./producto.controller */ \"./src/controllers/producto.controller.ts\");\nObject.defineProperty(exports, \"productoController\", ({ enumerable: true, get: function () { return producto_controller_1.productoController; } }));\nvar carrito_controller_1 = __importDefault(__webpack_require__(/*! ./carrito.controller */ \"./src/controllers/carrito.controller.ts\"));\nexports.carritoController = carrito_controller_1.default;\n\n\n//# sourceURL=webpack://back/./src/controllers/index.ts?");
 
 /***/ }),
 
@@ -66,7 +36,7 @@ eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {
   \************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("\nvar __assign = (this && this.__assign) || function () {\n    __assign = Object.assign || function(t) {\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\n            s = arguments[i];\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\n                t[p] = s[p];\n        }\n        return t;\n    };\n    return __assign.apply(this, arguments);\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nvar uuid_1 = __webpack_require__(/*! uuid */ \"uuid\");\nvar _services_1 = __webpack_require__(/*! @services */ \"./src/services/index.ts\");\nvar Service = new _services_1.ProductosServices();\nvar productoController = {\n    all: function (req, res) {\n        var response = Service.all();\n        res.status(response.status.code).json(response);\n    },\n    byId: function (req, res) {\n        var response = Service.byId(req.params.id);\n        res.status(response.status.code).json(response);\n    },\n    create: function (req, res) {\n        var newProduct = __assign(__assign({}, req.body), { id: uuid_1.v4(), timestamp: +new Date() });\n        var response = Service.post(newProduct);\n        res.status(response.status.code).json(response);\n    },\n    update: function (req, res) {\n        var response = Service.update(req.params.id, req.body);\n        res.status(response.status.code).json(response);\n    },\n    remove: function (req, res) {\n        Service.delete(req.params.id);\n        res.status(200).json(\"Borrado\");\n    },\n};\nexports.default = productoController;\n\n\n//# sourceURL=webpack://back/./src/controllers/producto.controller.ts?");
+eval("\nvar __assign = (this && this.__assign) || function () {\n    __assign = Object.assign || function(t) {\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\n            s = arguments[i];\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\n                t[p] = s[p];\n        }\n        return t;\n    };\n    return __assign.apply(this, arguments);\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.productoController = void 0;\nvar uuid_1 = __webpack_require__(/*! uuid */ \"uuid\");\nvar _services_1 = __webpack_require__(/*! @services */ \"./src/services/index.ts\");\nvar Service = new _services_1.ProductosServices();\nvar productoController = {\n    all: function (req, res) {\n        var response = Service.all();\n        res.status(response.status.code).json(response);\n    },\n    byId: function (req, res) {\n        var response = Service.byId(req.params.id);\n        res.status(response.status.code).json(response);\n    },\n    create: function (req, res) {\n        var newProduct = __assign(__assign({}, req.body), { id: uuid_1.v4(), timestamp: +new Date() });\n        var response = Service.post(newProduct);\n        res.status(response.status.code).json(response);\n    },\n    update: function (req, res) {\n        var response = Service.update(req.params.id, req.body);\n        res.status(response.status.code).json(response);\n    },\n    remove: function (req, res) {\n        Service.delete(req.params.id);\n        res.status(200).json(\"Borrado\");\n    },\n};\nexports.productoController = productoController;\n\n\n//# sourceURL=webpack://back/./src/controllers/producto.controller.ts?");
 
 /***/ }),
 
@@ -76,7 +46,7 @@ eval("\nvar __assign = (this && this.__assign) || function () {\n    __assign = 
   \**********************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.serverHttp = void 0;\nvar express_1 = __importDefault(__webpack_require__(/*! express */ \"express\"));\nvar http_1 = __importDefault(__webpack_require__(/*! http */ \"http\"));\nvar _routes_1 = __importDefault(__webpack_require__(/*! @routes */ \"./src/routes/index.ts\"));\nvar config_1 = __webpack_require__(/*! ./config */ \"./src/config/index.ts\");\nvar app = express_1.default();\nvar Cat = config_1.mongoose.model(\"Cat\", { name: String });\nvar kitty = new Cat({ name: \"Zildjian\" });\nkitty.save().then(function () { return console.log(\"meow\"); });\nexports.serverHttp = http_1.default.createServer(app); //Socket Io\napp.use(express_1.default.json());\napp.use(_routes_1.default);\nvar PORT = 8080;\nvar HOST = \"127.0.0.1\";\nvar server = exports.serverHttp.listen(PORT, HOST, function () {\n    return console.log(\"Server running in \" + HOST + \":\" + PORT);\n});\nserver.on(\"error\", function (error) { return console.log(\"Error \" + error); });\n\n\n//# sourceURL=webpack://back/./src/index.ts?");
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.serverHttp = void 0;\nvar express_1 = __importDefault(__webpack_require__(/*! express */ \"express\"));\nvar http_1 = __importDefault(__webpack_require__(/*! http */ \"http\"));\nvar _routes_1 = __importDefault(__webpack_require__(/*! @routes */ \"./src/routes/index.ts\"));\nvar app = express_1.default();\nexports.serverHttp = http_1.default.createServer(app); //Socket Io\napp.use(express_1.default.json());\napp.use(_routes_1.default);\nvar PORT = 8080;\nvar HOST = \"127.0.0.1\";\nvar server = exports.serverHttp.listen(PORT, HOST, function () {\n    return console.log(\"Server running in \" + HOST + \":\" + PORT);\n});\nserver.on(\"error\", function (error) { return console.log(\"Error \" + error); });\n\n\n//# sourceURL=webpack://back/./src/index.ts?");
 
 /***/ }),
 
@@ -136,7 +106,7 @@ eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {
   \***************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nvar express_1 = __webpack_require__(/*! express */ \"express\");\nvar productoController_1 = __webpack_require__(Object(function webpackMissingModule() { var e = new Error(\"Cannot find module '@controllers/productoController;'\"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));\nvar _middlewares_1 = __webpack_require__(/*! @middlewares */ \"./src/middlewares/index.ts\");\nvar productoRouter = express_1.Router();\nproductoRouter\n    .get(\"/\", productoController_1.productoController.all)\n    .get(\"/:id\", productoController_1.productoController.byId)\n    .post(\"/\", _middlewares_1.validateUser.isAdmin, _middlewares_1.validateProducto.dataCreated, productoController_1.productoController.create)\n    .patch(\"/:id\", _middlewares_1.validateUser.isAdmin, _middlewares_1.validateProducto.dataUpdate, productoController_1.productoController.update)\n    .delete(\"/:id\", _middlewares_1.validateUser.isAdmin, productoController_1.productoController.remove);\nexports.default = productoRouter;\n\n\n//# sourceURL=webpack://back/./src/routes/producto.routes.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nvar express_1 = __webpack_require__(/*! express */ \"express\");\nvar _controllers_1 = __webpack_require__(/*! @controllers */ \"./src/controllers/index.ts\");\nvar _middlewares_1 = __webpack_require__(/*! @middlewares */ \"./src/middlewares/index.ts\");\nvar productoRouter = express_1.Router();\nproductoRouter\n    .get(\"/\", _controllers_1.productoController.all)\n    .get(\"/:id\", _controllers_1.productoController.byId)\n    .post(\"/\", _middlewares_1.validateUser.isAdmin, _middlewares_1.validateProducto.dataCreated, _controllers_1.productoController.create)\n    .patch(\"/:id\", _middlewares_1.validateUser.isAdmin, _middlewares_1.validateProducto.dataUpdate, _controllers_1.productoController.update)\n    .delete(\"/:id\", _middlewares_1.validateUser.isAdmin, _controllers_1.productoController.remove);\nexports.default = productoRouter;\n\n\n//# sourceURL=webpack://back/./src/routes/producto.routes.ts?");
 
 /***/ }),
 
@@ -190,16 +160,6 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexpo
 
 /***/ }),
 
-/***/ "dotenv":
-/*!*************************!*\
-  !*** external "dotenv" ***!
-  \*************************/
-/***/ ((module) => {
-
-module.exports = require("dotenv");;
-
-/***/ }),
-
 /***/ "express":
 /*!**************************!*\
   !*** external "express" ***!
@@ -227,16 +187,6 @@ module.exports = require("fs");;
 /***/ ((module) => {
 
 module.exports = require("http");;
-
-/***/ }),
-
-/***/ "mongoose":
-/*!***************************!*\
-  !*** external "mongoose" ***!
-  \***************************/
-/***/ ((module) => {
-
-module.exports = require("mongoose");;
 
 /***/ }),
 

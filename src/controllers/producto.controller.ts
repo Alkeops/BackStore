@@ -32,4 +32,4 @@ const productoController = {
   },
 };
 
-export default productoController;
+export { productoController };

@@ -1,14 +1,9 @@
 import express from "express";
 import http from "http";
 import routes from "@routes";
-import { mongoose } from "./config";
+import { mongoose } from "@config";
 
 const app = express();
-
-const Cat = mongoose.model("Cat", { name: String });
-
-const kitty = new Cat({ name: "Zildjian" });
-kitty.save().then(() => console.log("meow"));
 
 export const serverHttp = http.createServer(app); //Socket Io
 

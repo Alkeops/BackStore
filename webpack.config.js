@@ -20,6 +20,7 @@ module.exports = {
       "@interfaces": srcPath("ts/interfaces"),
       "@middlewares": srcPath("middlewares"),
       "@utils": srcPath("utils"),
+      "@config": srcPath("config"),
     },
   },
   module: {

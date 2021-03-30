@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
 import {
+  MONGODB_GLOBAL_DB,
   MONGODB_GLOBAL_PASS,
   MONGODB_GLOBAL_URI,
   MONGODB_GLOBAL_USER,
-} from "./enviroment.conf";
+} from "@config/enviroment.conf";
 
 mongoose.connect(MONGODB_GLOBAL_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  dbName: MONGODB_GLOBAL_DB,
   user: MONGODB_GLOBAL_USER,
   pass: MONGODB_GLOBAL_PASS,
 });
