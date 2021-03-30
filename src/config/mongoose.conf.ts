@@ -6,12 +6,22 @@ import {
   MONGODB_GLOBAL_USER,
 } from "@config/enviroment.conf";
 
-mongoose.connect(MONGODB_GLOBAL_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  dbName: MONGODB_GLOBAL_DB,
-  user: MONGODB_GLOBAL_USER,
-  pass: MONGODB_GLOBAL_PASS,
-});
+const mongoInit = mongoose.connect(
+  MONGODB_GLOBAL_URI,
+  {
+    autoIndex: true,
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true,
+    dbName: MONGODB_GLOBAL_DB,
+    user: MONGODB_GLOBAL_USER,
+    pass: MONGODB_GLOBAL_PASS,
+  },
+  (error) => {
+    if (error) return console.log(error);
+    console.log("Connected");
+  }
+);
 
-export { mongoose };
+export { mongoInit };

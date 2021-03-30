@@ -1,3 +1,3 @@
-import { mongoose } from "./mongoose.conf";
+import { mongoInit } from "./mongoose.conf";
 
-export { mongoose };
+export { mongoInit };
