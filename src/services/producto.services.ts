@@ -37,9 +37,11 @@ export class ProductosServices {
 
   delete = async (id: string): Promise<ResponseP> => {
     try {
-      const { deletedCount } = await ProductoModel.deleteOne({ _id: id });
-      if (!deletedCount) return returnForApiProductos(404, "Not Found", []);
-      return returnForApiProductos(200, "Producto eliminado correctamente", []);
+      const response = await ProductoModel.findByIdAndDelete(id);
+      if (!response) return returnForApiProductos(404, "Not Found", []);
+      return returnForApiProductos(200, "Producto eliminado correctamente", [
+        response,
+      ]);
     } catch (error) {
       console.log(error);
       return returnForApiProductos(500, "Error", []);
@@ -54,7 +56,7 @@ export class ProductosServices {
         if (data[key] !== element[key]) counter++;
       }
       if (!counter) {
-        return returnForApiProductos(418, "El producto ya esta actualizado", [
+        return returnForApiProductos(304, "El producto ya esta actualizado", [
           element,
         ]);
       }
