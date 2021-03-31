@@ -1,6 +1,4 @@
 interface Producto {
-  id: string;
-  timestamp: number;
   price: number;
   thumbnail: string;
   name: string;

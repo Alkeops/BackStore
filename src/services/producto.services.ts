@@ -1,6 +1,7 @@
 const fs = require("fs");
 import { Producto, DataP, ResponseP } from "@interfaces";
 import { returnForApiProductos } from "@utils";
+import { ProductoModel } from "@databases/models";
 
 const DIRFOLDER = `${__dirname}/productos.txt`;
 
@@ -24,65 +25,68 @@ export class ProductosServices {
   };
 
   //Devuelve todo lo que halla en el array
-  all = (): ResponseP => returnForApiProductos(200, "All clear", this.state);
+  all = async (): Promise<ResponseP> => {
+    const respuesta = await ProductoModel.find({});
+    return returnForApiProductos(200, "All clear", respuesta);
+  };
 
   //Metodo repetido para la clase abstracta**
-  byId = (id: string): ResponseP => {
-    const element = this.state.find((element) => element.id === id)!;
-    if (!element) return returnForApiProductos(404, "Not Found", []);
-    return returnForApiProductos(200, "All clear", [element]);
+  byId = async (id: string): Promise<ResponseP> => {
+    try {
+      const element = await ProductoModel.findById(id);
+      return returnForApiProductos(200, "All clear", [element]);
+    } catch (error) {
+      console.log(error);
+      return returnForApiProductos(404, "Not Found", []);
+    }
   };
 
   //Post de un nuevo Producto con la interface Producto falta validar si el producto ya existe
-  post = (producto: Producto): ResponseP => {
-    this.state.push(producto);
-    this.rewriteFile();
-    return returnForApiProductos(201, "Producto creado", [producto]);
+  post = async (producto: Producto): Promise<ResponseP> => {
+    try {
+      const nuevoProducto = new ProductoModel(producto);
+      await nuevoProducto.save();
+      return returnForApiProductos(201, "Producto creado", [producto]);
+    } catch (error) {
+      console.log(error);
+      return returnForApiProductos(500, "Error", [error]);
+    }
   };
 
   //Metodo repetido para clase abstracta**
   //TODO Comprobar si el id existe
-  delete = (id: string) => {
-    this.state = this.state.filter((element) => element.id !== id);
-    return this.rewriteFile();
+  delete = async (id: string): Promise<ResponseP> => {
+    try {
+      const { deletedCount } = await ProductoModel.deleteOne({ _id: id });
+      if (!deletedCount) return returnForApiProductos(404, "Not Found", []);
+      return returnForApiProductos(200, "Producto eliminado correctamente", []);
+    } catch (error) {
+      console.log(error);
+      return returnForApiProductos(500, "Error", []);
+    }
   };
 
-  update = (id: string, data: DataP): ResponseP => {
-    /* Usa el metodo para traer el elemento preciso con el ID y se clona en una nueva variable, esto porque la asignacion simple solo guarda la referencia
-    del objeto pero no el objeto en si */
-    const element: Producto = Object.assign(
-      {},
-      this.state.find((element) => element.id === id)!
-    );
-    if (!Object.keys(element).length)
-      return returnForApiProductos(418, "No existe el producto", []);
-    /*
-    Se hace un conteo de las veces que un valor de una llave de data se repite en el elemento. Si el counter es igual al numero de keys en data significa que los datos ya estaban actualizados
-    */
-    let counter = 0;
-    let wrongType = false;
-    Object.keys(data).forEach((e) => {
-      if (element[e] === data[e]) counter++;
-      if (typeof element[e] !== typeof data[e]) wrongType = true;
-    });
-
-    if (wrongType)
-      return returnForApiProductos(418, "No coinciden los tipos", []);
-
-    if (counter === Object.keys(data).length)
-      return returnForApiProductos(418, "El producto ya esta actualizado", []);
-
-    //Elimina el elemento del archivo
-    this.delete(id);
-    //Agrega el viejo elemento y lo que sean los datos que vienen de la data
-    const elementUpdated = {
-      ...element,
-      ...data,
-    };
-    this.post(elementUpdated);
-    //Cuando sea una base de datos y no un archivo se puede actualizar directamente el producto sin eliminarlo del array, por ahora no tiene sentido hacer dos procesos
-
-    return returnForApiProductos(202, "Actualizado", [elementUpdated]);
+  update = async (id: string, data: DataP): Promise<ResponseP> => {
+    try {
+      const element = await ProductoModel.findById(id);
+      let counter: number = 0;
+      for (let key of Object.keys(data)) {
+        if (data[key] !== element[key]) counter++;
+      }
+      if (!counter) {
+        return returnForApiProductos(418, "El producto ya esta actualizado", [
+          element,
+        ]);
+      }
+      const response = await ProductoModel.findByIdAndUpdate(
+        { _id: id },
+        { ...data },
+        { new: true }
+      );
+      return returnForApiProductos(202, "Actualizado", [response]);
+    } catch (error) {
+      return returnForApiProductos(500, "Error", [error]);
+    }
   };
 
   rewriteFile = () => {

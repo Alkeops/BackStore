@@ -25,7 +25,12 @@ const productoSchema = new Schema(
       default: null,
     },
     stock: { type: Number, required: true, default: null },
-    code: { type: String, required: true, default: () => `CODE-${Date.now()}` },
+    code: {
+      type: String,
+      required: true,
+      unique: true,
+      default: () => `CODE-${Date.now()}`,
+    },
   },
   {
     timestamps: true,
