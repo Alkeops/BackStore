@@ -26,7 +26,7 @@ export class CarritoServices {
     return returnForApiCarrito(200, "All Ok", this.state);
   };
   byId = (id: string): ResponseC => {
-    const element = this.state.producto.find((element) => element.id === id)!;
+    const element = false;
     if (!element) return returnForApiCarrito(404, "Not Found", []);
     return returnForApiCarrito(200, "All clear", [element]);
   };
@@ -36,9 +36,7 @@ export class CarritoServices {
     return returnForApiCarrito(201, "Producto Agregado al carrito", [producto]);
   };
   delete = (id: string): ResponseC => {
-    this.state.producto = this.state.producto.filter(
-      (element) => element.id !== id
-    );
+    this.state.producto = this.state.producto.filter((element) => element);
     this.rewriteFile();
     console.log(this.state);
     return returnForApiCarrito(200, "Elemento borrado del carrito", []);

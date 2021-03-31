@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import uniqueValidator from "mongoose-unique-validator";
 
 const productoSchema = new Schema(
   {
@@ -36,6 +37,8 @@ const productoSchema = new Schema(
     timestamps: true,
   }
 );
+
+productoSchema.plugin(uniqueValidator);
 
 export const ProductoModel = mongoose.model(
   "Producto",

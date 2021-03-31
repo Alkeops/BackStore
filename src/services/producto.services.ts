@@ -59,14 +59,14 @@ export class ProductosServices {
         if (data[key] !== element[key]) counter++;
       }
       if (!counter) {
-        return returnForApiProductos(304, "El producto ya esta actualizado", [
+        return returnForApiProductos(418, "El producto ya esta actualizado", [
           element,
         ]);
       }
       const response = await ProductoModel.findByIdAndUpdate(
-        { _id: id },
+        id,
         { ...data },
-        { new: true }
+        { new: true, runValidators: true, context: "query" }
         /* Opciones en este caso si new=true significa que devuelve el objeto actualizado, 
       sin parametros deevuelve el objeto anttes de actual */
       );
