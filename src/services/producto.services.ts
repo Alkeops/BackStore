@@ -37,6 +37,7 @@ export class ProductosServices {
 
   delete = async (id: string): Promise<ResponseP> => {
     try {
+      /*findByIdAndDelte y findByIdAndUpdate retornan el objeto usado*/
       const response = await ProductoModel.findByIdAndDelete(id);
       if (!response) return returnForApiProductos(404, "Not Found", []);
       return returnForApiProductos(200, "Producto eliminado correctamente", [
@@ -52,6 +53,8 @@ export class ProductosServices {
     try {
       const element = await ProductoModel.findById(id);
       let counter: number = 0;
+      /* Comparacion si hay algo que actualizar 
+      TODO pasar a middleware*/
       for (let key of Object.keys(data)) {
         if (data[key] !== element[key]) counter++;
       }
@@ -64,6 +67,8 @@ export class ProductosServices {
         { _id: id },
         { ...data },
         { new: true }
+        /* Opciones en este caso si new=true significa que devuelve el objeto actualizado, 
+      sin parametros deevuelve el objeto anttes de actual */
       );
       return returnForApiProductos(202, "Actualizado", [response]);
     } catch (error) {
