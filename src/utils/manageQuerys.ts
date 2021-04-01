@@ -1,5 +1,6 @@
+import { Query } from "@interfaces";
 const getQuerysFilter = (query) => {
-  let querys = { name: {}, price: {} };
+  let querys: Query = {};
   for (let q of Object.keys(query)) {
     if (q === "nm") {
       querys = { ...querys, name: { $regex: query[q], $options: "i" } };

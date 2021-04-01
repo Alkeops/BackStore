@@ -25,5 +25,9 @@ interface ResponseP {
   data: Producto[];
   timestamp: number;
 }
+interface Query {
+  name?: {};
+  price?: {};
+}
 
-export { Producto, DataP, ResponseP };
+export { Producto, DataP, ResponseP, Query };
