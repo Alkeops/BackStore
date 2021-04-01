@@ -1,7 +1,7 @@
 const fs = require("fs");
 import { Producto, DataP, ResponseP } from "@interfaces";
 import { returnForApiProductos } from "@utils";
-import { ProductoModel } from "@databases/models";
+import { ProductoModel } from "@models";
 
 //TODO Servicios para Productos, probablemente crear una clase abstracta para todos los servicios y extender de ella.
 

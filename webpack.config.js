@@ -21,7 +21,7 @@ module.exports = {
       "@middlewares": srcPath("middlewares"),
       "@utils": srcPath("utils"),
       "@config": srcPath("config"),
-      "@databases": srcPath("databases"),
+      "@models": srcPath("models"),
     },
   },
   module: {
