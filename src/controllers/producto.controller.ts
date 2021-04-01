@@ -5,7 +5,7 @@ const Service = new ProductosServices();
 
 const productoController = {
   all: async (req: express.Request, res: express.Response) => {
-    const response = await Service.all();
+    const response = await Service.all(req.query);
     res.status(response.status.code).json(response);
   },
   byId: async (req: express.Request, res: express.Response) => {

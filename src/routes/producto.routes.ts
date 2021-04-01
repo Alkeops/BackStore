@@ -5,7 +5,7 @@ import { validateProducto, validateUser } from "@middlewares";
 const productoRouter = Router();
 
 productoRouter
-  .get("/", Controller.all)
+  .get("/", validateProducto.validateQuery, Controller.all)
   .get("/:id", Controller.byId)
   .post(
     "/",

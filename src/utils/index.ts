@@ -1,3 +1,4 @@
 import { returnForApiProductos, returnForApiCarrito } from "./return.producto";
+import { getQuerysFilter } from "./manageQuerys";
 
-export { returnForApiProductos, returnForApiCarrito };
+export { returnForApiProductos, returnForApiCarrito, getQuerysFilter };

@@ -1,14 +1,14 @@
-const fs = require("fs");
 import { Producto, DataP, ResponseP } from "@interfaces";
-import { returnForApiProductos } from "@utils";
+import { getQuerysFilter, returnForApiProductos } from "@utils";
 import { ProductoModel } from "@models";
 
 //TODO Servicios para Productos, probablemente crear una clase abstracta para todos los servicios y extender de ella.
 
 export class ProductosServices {
   //Devuelve todo lo que halla en el array
-  all = async (): Promise<ResponseP> => {
-    const respuesta = await ProductoModel.find({});
+  all = async (query): Promise<ResponseP> => {
+    const querys = getQuerysFilter(query);
+    const respuesta = await ProductoModel.find(querys).exec();
     return returnForApiProductos(200, "All clear", respuesta);
   };
 
