@@ -1,6 +1,7 @@
 import { Producto, DataP, ResponseP, QueryApi } from "@interfaces";
 import { getQuerysFilter, returnForApiProductos } from "@utils";
 import { ProductoModel } from "@models";
+import { generate } from "../generadorFaker";
 
 //TODO Servicios para Productos, probablemente crear una clase abstracta para todos los servicios y extender de ella.
 
@@ -11,7 +12,11 @@ export class ProductosServices {
     const respuesta = await ProductoModel.find(querys).exec();
     return returnForApiProductos(200, "All clear", respuesta);
   };
-
+  test = (cant) => {
+    const respuesta = generate(cant);
+    if (!respuesta) return returnForApiProductos(400, "No hay productos", []);
+    return returnForApiProductos(200, "All clear", respuesta);
+  };
   //Metodo repetido para la clase abstracta**
   byId = async (id: string): Promise<ResponseP> => {
     try {

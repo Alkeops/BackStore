@@ -8,6 +8,10 @@ const productoController = {
     const response = await Service.all(req.query);
     res.status(response.status.code).json(response);
   },
+  test: (req: express.Request, res: express.Response) => {
+    const response = Service.test(req.query.cant);
+    res.status(response.status.code).json(response);
+  },
   byId: async (req: express.Request, res: express.Response) => {
     const response = await Service.byId(req.params.id);
     res.status(response.status.code).json(response);

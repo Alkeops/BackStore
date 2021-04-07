@@ -6,6 +6,7 @@ const productoRouter = Router();
 
 productoRouter
   .get("/", validateProducto.validateQuery, Controller.all)
+  .get("/test", Controller.test)
   .get("/:id", Controller.byId)
   .post(
     "/",

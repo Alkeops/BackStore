@@ -6,6 +6,7 @@ import { BASE_GLOBAL_URL, GLOBAL_PORT } from "@config/enviroment.conf";
 
 const app = express();
 const mongoInits = mongoInit;
+
 export const serverHttp = http.createServer(app); //Socket Io
 
 app.use(express.json());
