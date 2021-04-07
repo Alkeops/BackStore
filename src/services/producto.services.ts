@@ -1,4 +1,4 @@
-import { Producto, DataP, ResponseP } from "@interfaces";
+import { Producto, DataP, ResponseP, QueryApi } from "@interfaces";
 import { getQuerysFilter, returnForApiProductos } from "@utils";
 import { ProductoModel } from "@models";
 
@@ -6,7 +6,7 @@ import { ProductoModel } from "@models";
 
 export class ProductosServices {
   //Devuelve todo lo que halla en el array
-  all = async (query): Promise<ResponseP> => {
+  all = async (query: QueryApi): Promise<ResponseP> => {
     const querys = getQuerysFilter(query);
     const respuesta = await ProductoModel.find(querys).exec();
     return returnForApiProductos(200, "All clear", respuesta);
