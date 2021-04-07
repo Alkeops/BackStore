@@ -29,5 +29,10 @@ interface Query {
   name?: {};
   price?: {};
 }
+interface QueryApi {
+  nm?: string;
+  min?: number;
+  max?: number;
+}
 
-export { Producto, DataP, ResponseP, Query };
+export { Producto, DataP, ResponseP, Query, QueryApi };

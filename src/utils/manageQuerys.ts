@@ -1,5 +1,5 @@
-import { Query } from "@interfaces";
-const getQuerysFilter = (query) => {
+import { Query, QueryApi } from "@interfaces";
+const getQuerysFilter = (query: QueryApi) => {
   let querys: Query = {};
   for (let q of Object.keys(query)) {
     if (q === "nm") {
