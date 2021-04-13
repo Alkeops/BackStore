@@ -1,7 +1,6 @@
-import { serverHttp } from "index";
-let io = require("socket.io")(serverHttp);
-
+const startServer = (io) =>{
 io.on("connection", (socket: any) => {
+  console.log("conectado")
   let mensajesGuardados: any = [];
   socket.emit(
     "mensajes",
@@ -16,4 +15,7 @@ io.on("connection", (socket: any) => {
     };
     io.emit("mensajeEnviado", newMensaje);
   });
-});
+});}
+
+
+export default startServer;
