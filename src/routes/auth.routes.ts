@@ -3,7 +3,10 @@ import { Router } from "express";
 const authRouter = Router();
 
 authRouter
-    .get("/", (req, res) => {
+    .get("/login", (req, res) => {
+        res.send("hola")
+    })
+    .get("/logout", (req, res) => {
         res.send("hola")
     })
 
