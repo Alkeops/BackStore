@@ -76,7 +76,7 @@ eval("\nvar __awaiter = (this && this.__awaiter) || function (thisArg, _argument
   \**********************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.io = void 0;\nvar express_1 = __importDefault(__webpack_require__(/*! express */ \"express\"));\nvar http_1 = __importDefault(__webpack_require__(/*! http */ \"http\"));\nvar _routes_1 = __importDefault(__webpack_require__(/*! @routes */ \"./src/routes/index.ts\"));\nvar _config_1 = __webpack_require__(/*! @config */ \"./src/config/index.ts\");\nvar enviroment_conf_1 = __webpack_require__(/*! @config/enviroment.conf */ \"./src/config/enviroment.conf.ts\");\nvar app = express_1.default();\nvar serverHttp = http_1.default.createServer(app); //Socket Io\nexports.io = __webpack_require__(/*! socket.io */ \"socket.io\")(serverHttp);\nexports.io.on(\"connection\", function (socket) {\n    console.log(\"conectado\");\n    var mensajesGuardados = [];\n    socket.emit(\"mensajes\", mensajesGuardados.length > 0 ? mensajesGuardados : \"Sin mensajes\");\n});\nvar mongoInits = _config_1.mongoInit;\napp.use(express_1.default.json());\napp.use(_routes_1.default);\nvar server = serverHttp.listen(enviroment_conf_1.GLOBAL_PORT, enviroment_conf_1.BASE_GLOBAL_URL, function () {\n    return console.log(\"Server running in \" + enviroment_conf_1.BASE_GLOBAL_URL + \":\" + enviroment_conf_1.GLOBAL_PORT);\n});\nserver.on(\"error\", function (error) { return console.log(\"Error \" + error); });\n\n\n//# sourceURL=webpack://back/./src/index.ts?");
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nvar express_1 = __importDefault(__webpack_require__(/*! express */ \"express\"));\nvar http_1 = __importDefault(__webpack_require__(/*! http */ \"http\"));\nvar _routes_1 = __importDefault(__webpack_require__(/*! @routes */ \"./src/routes/index.ts\"));\nvar _config_1 = __webpack_require__(/*! @config */ \"./src/config/index.ts\");\nvar enviroment_conf_1 = __webpack_require__(/*! @config/enviroment.conf */ \"./src/config/enviroment.conf.ts\");\nvar app = express_1.default();\nvar serverHttp = http_1.default.createServer(app); //Socket Io\n/* export const io = require(\"socket.io\")(serverHttp);\nio.on(\"connection\", (socket: any) => {\n  console.log(\"conectado\")\n  let mensajesGuardados: any = [];\n  socket.emit(\n    \"mensajes\",\n    mensajesGuardados.length > 0 ? mensajesGuardados : \"Sin mensajes\"\n  );\n}) */\nvar mongoInits = _config_1.mongoInit;\napp.use(express_1.default.json());\napp.use(_routes_1.default);\nvar server = serverHttp.listen(enviroment_conf_1.GLOBAL_PORT, enviroment_conf_1.BASE_GLOBAL_URL, function () {\n    return console.log(\"Server running in \" + enviroment_conf_1.BASE_GLOBAL_URL + \":\" + enviroment_conf_1.GLOBAL_PORT);\n});\nserver.on(\"error\", function (error) { return console.log(\"Error \" + error); });\n\n\n//# sourceURL=webpack://back/./src/index.ts?");
 
 /***/ }),
 
@@ -277,16 +277,6 @@ module.exports = require("mongoose");;
 /***/ ((module) => {
 
 module.exports = require("mongoose-unique-validator");;
-
-/***/ }),
-
-/***/ "socket.io":
-/*!****************************!*\
-  !*** external "socket.io" ***!
-  \****************************/
-/***/ ((module) => {
-
-module.exports = require("socket.io");;
 
 /***/ }),
 

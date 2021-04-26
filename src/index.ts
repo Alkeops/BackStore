@@ -7,7 +7,7 @@ import { BASE_GLOBAL_URL, GLOBAL_PORT } from "@config/enviroment.conf";
 
 const app = express();
 const serverHttp = http.createServer(app); //Socket Io
-export const io = require("socket.io")(serverHttp);
+/* export const io = require("socket.io")(serverHttp);
 io.on("connection", (socket: any) => {
   console.log("conectado")
   let mensajesGuardados: any = [];
@@ -15,7 +15,7 @@ io.on("connection", (socket: any) => {
     "mensajes",
     mensajesGuardados.length > 0 ? mensajesGuardados : "Sin mensajes"
   );
-})
+}) */
 
 const mongoInits = mongoInit;
 
