@@ -27,7 +27,7 @@ app.use(
     rolling: true, /* Force the session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. */
     saveUninitialized: false,
     cookie: {
-      expires: 6000,
+      expires: 60000,
     },
   })
 );
