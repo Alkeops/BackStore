@@ -23,8 +23,12 @@ app.use(express.json());
 app.use(
   session({
     secret: "melon",
-    resave: true,
-    saveUninitialized: true
+    resave: false,
+    rolling: true, /* Force the session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. */
+    saveUninitialized: false,
+    cookie: {
+      expires: 6000,
+    },
   })
 );
 app.use(routes);
