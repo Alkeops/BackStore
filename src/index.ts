@@ -1,9 +1,9 @@
 import express from "express";
+import session from "express-session";
 import http from "http";
 import routes from "@routes";
 import { mongoInit } from "@config";
 import { BASE_GLOBAL_URL, GLOBAL_PORT } from "@config/enviroment.conf";
-
 
 const app = express();
 const serverHttp = http.createServer(app); //Socket Io
@@ -20,6 +20,13 @@ io.on("connection", (socket: any) => {
 const mongoInits = mongoInit;
 
 app.use(express.json());
+app.use(
+  session({
+    secret: "melon",
+    resave: true,
+    saveUninitialized: true
+  })
+);
 app.use(routes);
 
 const server = serverHttp.listen(GLOBAL_PORT, BASE_GLOBAL_URL, () =>
