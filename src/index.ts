@@ -12,16 +12,6 @@ const redisStore = require("connect-redis")(session);
 
 const app = express();
 const serverHttp = http.createServer(app); //Socket Io
-/* export const io = require("socket.io")(serverHttp);
-io.on("connection", (socket: any) => {
-  console.log("conectado")
-  let mensajesGuardados: any = [];
-  socket.emit(
-    "mensajes",
-    mensajesGuardados.length > 0 ? mensajesGuardados : "Sin mensajes"
-  );
-}) */
-
 const mongoInits = mongoInit;
 
 app.use(express.json());
