@@ -33,7 +33,7 @@ app.use(
     saveUninitialized: true,
     store: new redisStore({
       client: client,
-      ttl: 2000,
+      ttl: 60,
     }),
   })
 );
