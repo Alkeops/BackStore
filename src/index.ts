@@ -4,6 +4,11 @@ import http from "http";
 import routes from "@routes";
 import { mongoInit } from "@config";
 import { BASE_GLOBAL_URL, GLOBAL_PORT } from "@config/enviroment.conf";
+import redis from "redis";
+
+export const client = redis.createClient(6379);
+
+const redisStore = require("connect-redis")(session);
 
 const app = express();
 const serverHttp = http.createServer(app); //Socket Io
@@ -22,13 +27,14 @@ const mongoInits = mongoInit;
 app.use(express.json());
 app.use(
   session({
-    secret: "melon",
-    resave: false,
-    rolling: true, /* Force the session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. */
-    saveUninitialized: false,
-    cookie: {
-      expires: 60000,
-    },
+    name: "Test",
+    secret: "Test",
+    resave: true,
+    saveUninitialized: true,
+    store: new redisStore({
+      client: client,
+      ttl: 2000,
+    }),
   })
 );
 app.use(routes);
